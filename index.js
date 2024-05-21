@@ -20,6 +20,7 @@ let topMovies = [
 app.use(morgan("common"));
 app.use("/public", express.static(__dirname + "/public"));
 // app.use(express.static(__dirname + "/public"));
+
 //endpoint requests
 app.get("/", (req, res) => {
   res.send("Welcome to my movie app!");
