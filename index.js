@@ -18,17 +18,12 @@ let topMovies = [
 ];
 
 app.use(morgan("common"));
-app.use("/public", express.static(__dirname + "/public"));
-// app.use(express.static(__dirname + "/public"));
+app.use(express.static("public"));
 
 //endpoint requests
 app.get("/", (req, res) => {
   res.send("Welcome to my movie app!");
 });
-
-// app.get("/documentation.html", (req, res) => {
-//   res.sendFile("documentation.html", { root: __dirname + "/public" });
-// });
 
 app.get("/movies", (req, res) => {
   res.send(topMovies);
