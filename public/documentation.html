@@ -5,25 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Documentation</title>
   </head>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+  </style>
   <body>
     <h1>Documentation Page</h1>
-    <p>This API will be able to: 
-    <p>- Return a list of ALL movies to the user</p>
+    <p>This API will be able to:</p>
+    <p>
+      - Return a list of ALL movies to the user <br />
+      End Point URL: /movies <br />
+      Method type: GET <br />
+      Query parameters: none <br />
+      Data format of request: none <br />
+      Data format of response: JSON
+    </p>
+    <p></p>
     <p>
       - Return data (description, genre, director, image URL, whether it's
-      featured or not) about a single movie by title to the user
+      featured or not) about a single movie by title to the user <br />
+      End Point URL: /movies/[TITLE] <br />
+      Method type: GET <br />
+      Query parameters: [TITLE] is desired movie name <br />
+      Data format of request: none <br />
+      Data format of response: JSON
     </p>
     <p>
-      - Return data about a genre (description) by name/title (e.g., “Thriller”)
+      - Return data about a genre (description) by name/title (e.g.,
+      “Thriller”)<br />
+      End Point URL: /movies/genre/[GENRE_NAME] <br />
+      Method type: GET <br />
+      Query parameters: [GENRE_NAME] is desired movie genre <br />
+      Data format of request: none <br />
+      Data format of response: JSON
     </p>
-    <p>- Return data about a director (bio, birth year, death year) by name</p>
-    <p>- Allow new users to register</p>
     <p>
-      - Allow users to update their user info (username, password, email, date
-      of birth)
+      - Return data about a director (bio, birth year, death year) by name<br />
+      End Point URL: /movies/directors/[DIRECTOR_NAME] <br />
+      Method type: GET <br />
+      Query parameters: [DIRECTOR_NAME] is desired director's name <br />
+      Data format of request: none <br />
+      Data format of response: JSON
     </p>
-    <p>- Allow users to add a movie to their list of favorites</p>
-    <p>- Allow users to remove a movie from their list of favorites</p>
-    <p>- Allow existing users to deregister</p></p>
+    <p>
+      - Allow new users to register<br />
+      End Point URL: /users <br />
+      Method type: POST <br />
+      Query parameters: none <br />
+      Data format of request: JSON <br />
+      Example: <br />
+      {<br />
+      &ensp;name: [NAME]<br />
+      &ensp;favoriteMovies: [[MOVIE_TITLE],...]]<br />
+      }<br />
+      Data format of response: JSON
+    </p>
+
+    <p>
+      - Allow users to update their user info (username)<br />
+      End Point URL: /users/[ID] <br />
+      Method type: PUT <br />
+      Query parameters: [ID] is user's ID <br />
+      Data format of request: JSON <br />
+      Example: <br />
+      {<br />
+      &ensp;name: [NAME]<br />
+      }<br />
+      Data format of response: JSON
+    </p>
+    <p>
+      - Allow users to add a movie to their list of favorites (showing only a
+      text that a movie has been added)<br />
+      End Point URL: /users/[ID]/[MOVIE_TITLE] <br />
+      Method type: POST <br />
+      Query parameters: [ID] is user ID, [MOVIE_TITLE] is new favorite movie
+      title<br />
+      Data format of request: none<br />
+      Data format of response: STRING;
+    </p>
+    <p>
+      - Allow users to remove a movie from their list of favorites (showing only
+      a text that a movie has been removed)<br />
+      End Point URL: /users/[ID]/[MOVIE_TITLE] <br />
+      Method type: POST <br />
+      Query parameters: [ID] is user ID, [MOVIE_TITLE] is movie title being
+      removed<br />
+      Data format of request: none<br />
+      Data format of response: STRING;
+    </p>
+    <p>
+      - Allow existing users to deregister (showing only a text that a user
+      email has been removed)<br />
+      End Point URL: /users/[ID] <br />
+      Method type: POST <br />
+      Query parameters: [ID] is user ID<br />
+      Data format of request: none<br />
+      Data format of response: STRING;
+    </p>
+
+    <table>
+      <tr>
+        <th>Request</th>
+        <th>URL</th>
+        <th>Response</th>
+      </tr>
+      <tr>
+        <td>Get a list of movies</td>
+        <td>/movies</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>Get data about a single movie by title</td>
+        <td>/movies/[TITLE]</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>Get genre data by name/title</td>
+        <td>/movies/genre/[GENRE_NAME]</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>Get data about a director by name</td>
+        <td>/movies/directors/[DIRECTOR_NAME]</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>Add new user</td>
+        <td>/users</td>
+        <td>POST</td>
+      </tr>
+      <tr>
+        <td>Update user information</td>
+        <td>/users/[ID]</td>
+        <td>PUT</td>
+      </tr>
+      <tr>
+        <td>Add a movie to user's favorite list</td>
+        <td>/user/[ID]/[MOVIE_TITLE]</td>
+        <td>POST</td>
+      </tr>
+      <tr>
+        <td>Remove a movie from user's favorite list</td>
+        <td>/user/[ID]/[MOVIE_TITLE]</td>
+        <td>DELETE</td>
+      </tr>
+      <tr>
+        <td>Deregister an existing user</td>
+        <td>/user/[ID]</td>
+        <td>DELETE</td>
+      </tr>
+    </table>
   </body>
 </html>
