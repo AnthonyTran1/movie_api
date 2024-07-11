@@ -59,7 +59,10 @@
       Data format of method: JSON <br />
       Example: <br />
       {<br />
-      &ensp;name: [NAME]<br />
+      &ensp;Username: String, <br />
+      &ensp;Password: String, <br />
+      &ensp;Email: String, <br />
+      &ensp;Birthday: Date <br />
       }<br />
       Data format of method: JSON
     </p>
@@ -72,36 +75,39 @@
       Data format of method: JSON <br />
       Example: <br />
       {<br />
-      &ensp;name: [NAME]<br />
+      &ensp;Username: String, <br />
+      &ensp;Password: String, <br />
+      &ensp;Email: String, <br />
+      &ensp;Birthday: Date <br />
       }<br />
       Data format of method: JSON
     </p>
     <p>
       - Allow users to add a movie to their list of favorites (showing only a
       text that a movie has been added)<br />
-      End Point URL: /users/[ID]/[MOVIE_TITLE] <br />
+      End Point URL: /users/[USERNAME]/movies/[MOVIE_TITLE] <br />
       Method type: POST <br />
-      Query parameters: [ID] is user ID, [MOVIE_TITLE] is new favorite movie
-      title<br />
+      Query parameters: [USERNAME] is user's username, [MOVIE_TITLE] is new
+      favorite movie title<br />
       Data format of request: none<br />
       Data format of method: STRING;
     </p>
     <p>
       - Allow users to remove a movie from their list of favorites (showing only
       a text that a movie has been removed)<br />
-      End Point URL: /users/[ID]/[MOVIE_TITLE] <br />
+      End Point URL: /users/[USERNAME]/movies/[MOVIE_TITLE] <br />
       Method type: DELETE <br />
-      Query parameters: [ID] is user ID, [MOVIE_TITLE] is movie title being
-      removed<br />
+      Query parameters: [USERNAME] is user's username, [MOVIE_TITLE] is movie
+      title being removed<br />
       Data format of request: none<br />
       Data format of method: STRING;
     </p>
     <p>
       - Allow existing users to deregister (showing only a text that a user
       email has been removed)<br />
-      End Point URL: /users/[ID] <br />
+      End Point URL: /users/[USERNAME] <br />
       Method type: DELETE <br />
-      Query parameters: [ID] is user ID<br />
+      Query parameters: [USERNAME] is user's username<br />
       Data format of request: none<br />
       Data format of method: STRING;
     </p>
