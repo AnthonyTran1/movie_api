@@ -5,7 +5,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 const mongoose = require("mongoose");
 const Models = require("./models.js");
-
+let auth = require("./auth")(app);
+const passport = require("passport");
+require("./passport");
 const Movies = Models.Movies;
 const Users = Models.Users;
 
