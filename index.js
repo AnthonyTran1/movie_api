@@ -14,7 +14,11 @@ const cors = require("cors");
 app.use(cors());
 const { check, validationResult } = require("express-validator");
 
-mongoose.connect("mongodb://localhost:27017/cfdb", {
+// mongoose.connect("mongodb://localhost:27017/cfdb", {
+//   useUnifiedTopology: true,
+// });
+
+mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 
