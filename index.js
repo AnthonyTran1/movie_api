@@ -70,7 +70,7 @@ app.get(
       })
       .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send("Error: " + err + ". Genre does not exist!");
       });
   }
 );
@@ -87,7 +87,7 @@ app.get(
       })
       .catch((err) => {
         console.error(err);
-        res.status(500).send("Error: " + err);
+        res.status(500).send("Error: " + err + ". Director does not exist!");
       });
   }
 );
@@ -300,29 +300,37 @@ app.delete(
 
 //READ
 // Get a user by username
-app.get("/users/:Username", async (req, res) => {
-  await Users.findOne({ Username: req.params.Username })
-    .then((user) => {
-      res.status(200).json(user);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/users/:Username",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Users.findOne({ Username: req.params.Username })
+      .then((user) => {
+        res.status(200).json(user);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //READ
 //Return a list of ALL users to the user
-app.get("/users", async (req, res) => {
-  await Users.find()
-    .then((users) => {
-      res.status(201).json(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/users",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Users.find()
+      .then((users) => {
+        res.status(201).json(users);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
