@@ -332,6 +332,47 @@ app.get(
   }
 );
 
+//POST login
+app.post(
+  "/users/login",
+  // Validation logic here for request
+  //you can either use a chain of methods like .not().isEmpty()
+  //which means "opposite of isEmpty" in plain english "is not empty"
+  //or use .isLength({min: 5}) which means
+  //minimum value of 5 characters are only allowed
+  [
+    check("Username", "Username is required.").not().isEmpty(),
+    check("Password", "Password is required").not().isEmpty(),
+  ],
+
+  async (req, res) => {
+    // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    await Users.findOne({ Username: req.body.Username })
+      .then((user) => {
+        if (user) {
+          if (Username.Password == hashedPassword) {
+            res.status(201).json(req.body.Username + " has logged in");
+          } else {
+            return res.status(406).send("Incorrect Password!");
+          }
+        } else {
+          return res.status(404).send(req.body.Username + "does not exist!");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
+
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
