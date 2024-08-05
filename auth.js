@@ -12,8 +12,6 @@ let generateJWTToken = (user) => {
     algorithm: "HS256", // This is the algorithm used to “sign” or encode the values of the JWT
   });
 };
-const cors = require("cors");
-router.use(cors({ origin: "*" }));
 
 /* POST login. */
 module.exports = (router) => {
