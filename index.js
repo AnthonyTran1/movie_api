@@ -352,6 +352,8 @@ app.post(
     await Users.findOne({ Username: req.body.Username })
       .then((user) => {
         if (user) {
+          console.log("user pass " + user.Password);
+          console.log("user pass " + hashedPassword);
           if (user.Password == hashedPassword) {
             res.status(201).json(req.body.Username + " has logged in");
           } else {
