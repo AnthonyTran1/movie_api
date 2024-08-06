@@ -12,8 +12,6 @@ app.use(cors());
 let auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
-const cors = require("cors");
-app.use(cors());
 const { check, validationResult } = require("express-validator");
 
 // mongoose.connect("mongodb://localhost:27017/cfdb", {
@@ -333,44 +331,6 @@ app.get(
       });
   }
 );
-
-// //POST login
-// app.post(
-//   "/users/login",
-//   [
-//     check("Username", "Username is required.").not().isEmpty(),
-//     check("Password", "Password is required").not().isEmpty(),
-//   ],
-
-//   async (req, res) => {
-//     // check the validation object for errors
-//     let errors = validationResult(req);
-
-//     if (!errors.isEmpty()) {
-//       return res.status(422).json({ errors: errors.array() });
-//     }
-
-//     let hashedPassword = Users.hashPassword(req.body.Password);
-//     await Users.findOne({ Username: req.body.Username })
-//       .then((user) => {
-//         if (user) {
-//           console.log("user pass " + user.Password);
-//           console.log("user pass " + hashedPassword);
-//           if (user.Password == hashedPassword) {
-//             res.status(201).json(req.body.Username + " has logged in");
-//           } else {
-//             return res.status(406).send("Incorrect Password!");
-//           }
-//         } else {
-//           return res.status(404).send(req.body.Username + "does not exist!");
-//         }
-//       })
-//       .catch((error) => {
-//         console.error(error);
-//         res.status(500).send("Error: " + error);
-//       });
-//   }
-// );
 
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
