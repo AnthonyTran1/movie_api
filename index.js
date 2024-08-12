@@ -227,6 +227,8 @@ app.post(
     // CONDITION TO CHECK ADDED HERE
     if (req.user.Username !== req.params.Username) {
       return res.status(400).send("Permission denied");
+    } else if (req.user.FavoriteMovies.includes(req.params.MovieID)) {
+      return res.status(409).send("This Movie is already in Favorites!");
     }
     //CONDITION ENDS
     await Users.findOneAndUpdate(
