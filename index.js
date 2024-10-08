@@ -14,6 +14,7 @@ let allowedOrigins = [
   "http://testsite.com",
   "http://localhost:1234",
   "https://myflix-ant.netlify.app",
+  "http://localhost:4200",
 ];
 let auth = require("./auth")(app);
 const passport = require("passport");
