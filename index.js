@@ -15,6 +15,7 @@ let allowedOrigins = [
   "http://localhost:1234",
   "https://myflix-ant.netlify.app",
   "http://localhost:4200",
+  "https://my-flix-angular-client-ten.vercel.app",
 ];
 let auth = require("./auth")(app);
 const passport = require("passport");
