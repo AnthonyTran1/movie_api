@@ -22,10 +22,6 @@ const passport = require("passport");
 require("./passport");
 const { check, validationResult } = require("express-validator");
 
-// mongoose.connect("mongodb://localhost:27017/cfdb", {
-//   useUnifiedTopology: true,
-// });
-
 mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
@@ -46,8 +42,16 @@ app.use(
   })
 );
 
-//READ
-//Return a list of ALL movies to the user
+/**
+ * READ and returns a list of ALL movies to the user
+ * @function
+ * @async
+ * @name getAllMovies
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error when reading list of movies.
+ * @returns {Object} - Returns JSON object with all movie objects.
+ */
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -62,11 +66,17 @@ app.get(
       });
   }
 );
-//localhost:8080/users?Username=applejuicer&Password=redapple
 
-//READ
-//Return data (description, genre, director, image URL, whether it’s featured or not)
-//about a single movie by title to the user
+/**
+ * READ and returns data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+ * @function
+ * @async
+ * @name getSingleMovie
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error when reading movie details.
+ * @returns {Object} - Returns JSON object with movie details.
+ */
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -82,8 +92,16 @@ app.get(
   }
 );
 
-//READ
-//Return data about a genre (description) by name/title (e.g., “Thriller”)
+/**
+ * READ and returns the genre of a single movie by name of genre
+ * @function
+ * @async
+ * @name getMovieGenre
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error when reading genre details.
+ * @returns {Object} - Returns JSON object with genre description.
+ */
 app.get(
   "/movies/genres/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -99,8 +117,16 @@ app.get(
   }
 );
 
-//READ
-//Return data about a director (bio, birth year, death year) by name
+/**
+ * READ and returns data about a director (bio, birth year, death year) by name
+ * @function
+ * @async
+ * @name getMovieDirector
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error when reading director details.
+ * @returns {Object} - Returns JSON object with director details.
+ */
 app.get(
   "/movies/directors/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -116,23 +142,18 @@ app.get(
   }
 );
 
-//CREATE
-//Allow new users to register
-/* We’ll expect JSON in this format
-{
-  ID: Integer,
-  Username: String,
-  Password: String,
-  Email: String,
-  Birthday: Date
-}*/
+/**
+ * CREATE a new user and add them to DB
+ * @function
+ * @async
+ * @name signupUser
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error when creating the new user.
+ * @returns {Object} - Returns JSON object with new user details.
+ */
 app.post(
   "/users",
-  // Validation logic here for request
-  //you can either use a chain of methods like .not().isEmpty()
-  //which means "opposite of isEmpty" in plain english "is not empty"
-  //or use .isLength({min: 5}) which means
-  //minimum value of 5 characters are only allowed
   [
     check("Username", "Username is required").isLength({ min: 5 }),
     check(
@@ -191,6 +212,16 @@ app.post(
   (required)
   Birthday: Date
 }*/
+/**
+ * UPDATE an existing user detail on the DB
+ * @function
+ * @async
+ * @name updateUser
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error when updating the existing user.
+ * @returns {Object} - Returns JSON object with updated user details.
+ */
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -244,6 +275,16 @@ app.put(
 
 //CREATE
 // Add a movie to a user's list of favorites
+/**
+ * CREATE add a movie to a user's list of favorites
+ * @function
+ * @async
+ * @name addFavoriteMovie
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error adding a movie to favorites list.
+ * @returns {Object} - Returns JSON object with new movie in favorites list.
+ */
 app.post(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -273,6 +314,16 @@ app.post(
 );
 //DELETE
 //Remove a movie from a user's list of favorites
+/**
+ * DELETE a movie from a user's list of favorites
+ * @function
+ * @async
+ * @name removeFavoriteMovie
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error when removing a movie from favorites list.
+ * @returns {Object} - Returns JSON object without specified movie in favorites list.
+ */
 app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -302,6 +353,16 @@ app.delete(
 );
 
 // Delete a user by username
+/**
+ * DELETE a user by username
+ * @function
+ * @async
+ * @name deleteUser
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error when removing a user from DB.
+ * @returns {Object} - Returns status of removed user from DB.
+ */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -328,6 +389,16 @@ app.delete(
 
 //READ
 // Get a user by username
+/**
+ * READ a user by username
+ * @function
+ * @async
+ * @name getUser
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error when reading a user from DB.
+ * @returns {Object} - Returns JSON object of the user details.
+ */
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -345,6 +416,17 @@ app.get(
 
 //READ
 //Return a list of ALL users to the user
+// Get a user by username
+/**
+ * READ a list of all users from DB
+ * @function
+ * @async
+ * @name getUsersList
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {Error} - If there is an error when reading a user from DB.
+ * @returns {Object} - Returns JSON object of the user details.
+ */
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
